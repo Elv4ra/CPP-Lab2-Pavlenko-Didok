@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class CarController {
     public static List<Car> createCarList() throws FileNotFoundException {
@@ -28,29 +29,19 @@ public class CarController {
         return carArray;
     }
 
-    public static void displayCarsByBrand(List<Car> cars, String brand) {
-        cars.forEach(car -> {
-            if (car.getBrand().equals(brand)) {
-                System.out.print(car);
-            }
-        });
+    public static List<Car> filterCarsByBrand(List<Car> cars, String brand) {
+        return cars.stream().filter(car -> car.getBrand().equals(brand)).collect(Collectors.toList());
     }
 
-    public static void displayByExploitationYears(List<Car> cars, Integer yearsInExploitation) {
-        cars.forEach(car -> {
-            if (Calendar.getInstance().get(Calendar.YEAR) - car.getYearOfManufacture() > yearsInExploitation) {
-                System.out.print(car);
-            }
-        });
+    public static List<Car> filterByExploitationYears(List<Car> cars, Integer yearsInExploitation) {
+        return cars.stream().filter(car ->
+                Calendar.getInstance().get(Calendar.YEAR) - car.getYearOfManufacture() > yearsInExploitation)
+                        .collect(Collectors.toList());
     }
 
-    public static void displayCarsByYearOfManufactureAndPrice(List<Car> cars, Integer year, BigDecimal price) {
-        cars.forEach(car -> {
-            if (car.getYearOfManufacture().equals(year)
-                    && car.getPrice().compareTo(price) > 0) {
-                System.out.print(car);
-            }
-        });
+    public static List<Car> filterCarsByYearOfManufactureAndPrice(List<Car> cars, Integer year, BigDecimal price) {
+        return cars.stream().filter(car -> car.getYearOfManufacture().equals(year)
+                && car.getPrice().compareTo(price) > 0).collect(Collectors.toList());
     }
 
 }

@@ -14,15 +14,18 @@ public class Runner {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Input brand: ");
-        CarController.displayCarsByBrand(cars, scanner.nextLine());
+        List<Car> carsFilteredByBrand = CarController.filterCarsByBrand(cars, scanner.nextLine());
+        carsFilteredByBrand.forEach(System.out::println);
 
-        System.out.print("Input number of years: ");
-        CarController.displayByExploitationYears(cars, Integer.parseInt(scanner.nextLine()));
+        System.out.print("Input number of years of exploitation: ");
+        List<Car> carsFilteredByExploitationYears = CarController.filterByExploitationYears(cars, Integer.parseInt(scanner.nextLine()));
+        carsFilteredByExploitationYears.forEach(System.out::println);
 
-        System.out.print("Input year: ");
+        System.out.print("Input year of manufacture: ");
         Integer year = Integer.parseInt(scanner.nextLine());
         System.out.print("Input price: ");
-        CarController.displayCarsByYearOfManufactureAndPrice(cars, year, new BigDecimal(scanner.nextLine()));
+        List<Car> carsFilteredByYearAndPrice = CarController.filterCarsByYearOfManufactureAndPrice(cars, year, new BigDecimal(scanner.nextLine()));
+        carsFilteredByYearAndPrice.forEach(System.out::println);
     }
 }
 
